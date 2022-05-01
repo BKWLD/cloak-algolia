@@ -1,0 +1,4 @@
+# Fetch a algolia block
+fragment algoliaBlock on BlockAlgolia {
+	# Fields go here
+}
