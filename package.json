@@ -14,14 +14,17 @@
 		"generate": "nuxt generate demo --fail-on-error --target=static"
 	},
 	"dependencies": {
-		"@cloak-app/utils": "^1.2.0",
+		"@cloak-app/utils": "^1.6.0",
+		"algoliasearch": "^4.13.0",
 		"consola": "^2.0.0",
 		"defu": "^6.0.0",
 		"esm": "^3.0.0",
-		"minimist": "^1.0.0"
+		"minimist": "^1.0.0",
+		"pluralize": "^8.0.0"
 	},
 	"devDependencies": {
 		"@cloak-app/boilerplate": "^1.0.8",
+		"@cloak-app/craft": "^1.0.3",
 		"@cloak-app/demo-theme": "^1.0.5",
 		"@nuxt/content": "^1.14.0",
 		"nuxt": "^2.15.7"

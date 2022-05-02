@@ -11,5 +11,5 @@ const argv = parseArgs(process.argv.slice(2)),
 
 // Load Nuxt config and then pass options off to the record-sync executor
 loadNuxtConfig({ rootDir }).then(config => {
-	return startRecordSync(config.cloak && config.cloak.algolia)
+	return startRecordSync(config)
 })

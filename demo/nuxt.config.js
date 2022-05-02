@@ -5,6 +5,7 @@ export default {
 	buildModules: [
 		'@cloak-app/boilerplate',
 		'@cloak-app/demo-theme',
+		'@cloak-app/craft',
 		'../nuxt',
 	],
 

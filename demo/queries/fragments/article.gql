@@ -1,0 +1,12 @@
+#import "@cloak-app/craft/queries/fragments/image.gql"
+
+# An article entry when shown in a listing
+fragment article on articles_article_Entry {
+	id
+	title
+	uri
+	image { ...image }
+	entries(site: "example") {
+		whatever
+	}
+}
