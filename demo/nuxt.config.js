@@ -16,9 +16,19 @@ export default {
 			siteName: '@cloak-app/algolia demo',
 		},
 
-		// Example settings for this package
+		// Configure this package
 		algolia: {
-			blockMaxWidthClass: 'max-w',
+
+			// Algolia Credentials
+			appId: process.env.ALGOLIA_APP_ID,
+			searchKey: process.env.ALGOLIA_SEARCH_KEY,
+			adminKey: process.env.ALGOLIA_ADMIN_KEY,
+
+			// Sync settings
+			syncHook: 'generate:done',
+			sync: [
+				'articles'
+			]
 		}
 	},
 

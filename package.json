@@ -5,6 +5,7 @@
 	"repository": "git@github.com:BKWLD/cloak-algolia.git",
 	"author": "Bukwild <info@bukwild.com>",
 	"license": "MIT",
+	"bin": "cli.js",
 	"main": "nuxt.js",
 	"scripts": {
 		"dev": "nuxt dev demo",
@@ -13,7 +14,11 @@
 		"generate": "nuxt generate demo --fail-on-error --target=static"
 	},
 	"dependencies": {
-		"@cloak-app/utils": "^1.2.0"
+		"@cloak-app/utils": "^1.2.0",
+		"consola": "^2.0.0",
+		"defu": "^6.0.0",
+		"esm": "^3.0.0",
+		"minimist": "^1.0.0"
 	},
 	"devDependencies": {
 		"@cloak-app/boilerplate": "^1.0.8",

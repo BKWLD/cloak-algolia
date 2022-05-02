@@ -34,3 +34,5 @@ Renders a Block to be used within a Tower.
 ## Contributing
 
 Run `yarn dev` to open a Nuxt dev build of [the demo directory](./demo).
+
+To work on the [record-sync module](./modules/record-sync.js), run `chmod +x ./cli.js` to make [cli.js](./cli.js) executable and then run `./cli.js demo` to run the `record-sync` process using the demo Nuxt environment.
