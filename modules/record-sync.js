@@ -35,8 +35,8 @@ export async function startRecordSync(options) {
 
 	// Build unpacked array of index sync configuration
 	log.info('Unpacking sync config')
-	const indexSyncConfigs = await Promise.all(config.sync.map(indexConfig => {
-		return unpackIndexConfig(indexConfig, options)
+	const indexSyncConfigs = await Promise.all(config.sync.map(syncConfig => {
+		return unpackSyncConfig(syncConfig, options)
 	}))
 
 	console.log(indexSyncConfigs)
@@ -45,30 +45,59 @@ export async function startRecordSync(options) {
 // The sync config supports a simple string shorthand as well as many options
 // that are derived from other options. This method expands each config for
 // easy consumption later
-async function unpackIndexConfig(indexConfig, options) {
+async function unpackSyncConfig(syncConfig, options) {
 
-	// The indexHandle is index name without env prefiexs. Ex: "articles" instead
-	// of prod_en-US_articles.
-	const name = typeof indexConfig == 'string' ? indexConfig : indexConfig.name
-	if (!name) throw 'name could not be detected'
+	// Support simple string configs
+	if (typeof syncConfig == 'string') syncConfig = { name: syncConfig }
 
-	// Re-create indexConfig as an object
-	indexConfig = { name }
+	// Build the indexName automatically
+	if (!syncConfig.indexName) {
+		syncConfig.indexName = makeIndexName(syncConfig.name, options)
+	}
 
-	// The graphql query used to fetch records.
-	indexConfig.query = indexConfig.query ||
-		await getDefaultQuery(indexConfig, options)
+	// Build query if one wasn't explicitly defined
+	if (!syncConfig.records) {
+		syncConfig.query = syncConfig.query ||
+			await buildQueryFromFragment(syncConfig, options)
+	}
+
+	// Set query variables from options
+	if (syncConfig.query && !syncConfig.variables) {
+		syncConfig.variables = {
+			section: syncConfig.section || syncConfig.name,
+			type: syncConfig.type,
+		}
+	}
 
 	// Return the final config object
-	return indexConfig
+	return syncConfig
+}
+
+// Make the index name given the syncConfig name. This draws both from
+// publicRuntimeConfig, for when running normaly through a Nuxt module hook,
+// and from ENV, from when running from CLI. This makes an index name like:
+// "prod_en-uS_articles".
+function makeIndexName(name, options) {
+	const $config = options.publicRuntimeConfig || {}
+	return [
+		$config.cloak &&
+			$config.cloak.boilerplate &&
+			$config.cloak.boilerplate.appEnv ||
+			process.env.APP_ENV,
+		$config.cloak &&
+			$config.cloak.craft &&
+			$config.cloak.craft.site ||
+			process.env.CMS_SITE,
+		name
+	].filter(val => !!val).join('_')
 }
 
 // Get the default query for the CMS
-async function getDefaultQuery(indexConfig, options) {
+async function buildQueryFromFragment(syncConfig, options) {
 
 	// Determine the fragment path
-	const fragmentPath = indexConfig.fragmentPath ||
-		`queries/fragments/${singular(indexConfig.name)}.gql`
+	const fragmentPath = syncConfig.fragmentPath ||
+		`queries/fragments/${singular(syncConfig.name)}.gql`
 
 	// Determine the full path to the fragment
 	const fragmentFullPath = join(options.rootDir, fragmentPath)
@@ -83,21 +112,21 @@ async function getDefaultQuery(indexConfig, options) {
 		fragmentName = getFragmentName(fragment)
 
 	// Build the CMS specific query
-	const modules = [...options.modules, ...options.buildModules]
-	if (modules.includes('@cloak-app/craft')) {
-		return `
-			query getEntriesToSync(
-				$site:    [String]
-				$section: [String]
-				$type:    [String]) {
-				entries(
-					site:    $site
-					section: $section
-					type:    $type) {
-					...${fragmentName}
+	switch (getCms(options)) {
+		case 'craft': return `
+				query getEntriesToSync(
+					$site:    [String]
+					$section: [String]
+					$type:    [String]) {
+					entries(
+						site:    $site
+						section: $section
+						type:    $type) {
+						...${fragmentName}
+					}
 				}
-			}
-		` + fragment
+			` + fragment
+		default: throw 'Unknown CMS'
 	}
 }
 
@@ -107,6 +136,12 @@ function getFragmentName(fragment) {
 	const matches = fragment.match(/fragment\s+(\w+)/i)
 	if (!matches) throw 'Fragment name could not be detected'
 	return matches[1]
+}
+
+// Get the CMS name by looking for Cloak CMS modules.
+function getCms(options) {
+	const modules = [...options.modules, ...options.buildModules]
+	if (modules.includes('@cloak-app/craft')) return 'craft'
 }
 
 // Do the work of converting entries to records
