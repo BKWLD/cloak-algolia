@@ -17,15 +17,8 @@ export default {
 			siteName: '@cloak-app/algolia demo',
 		},
 
-		// Configure this package
+		// Sync settings
 		algolia: {
-
-			// Algolia Credentials
-			appId: process.env.ALGOLIA_APP_ID,
-			searchKey: process.env.ALGOLIA_SEARCH_KEY,
-			adminKey: process.env.ALGOLIA_ADMIN_KEY,
-
-			// Sync settings
 			syncHook: 'generate:done',
 			sync: [
 				'articles'

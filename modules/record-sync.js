@@ -1,9 +1,9 @@
-import { defu } from 'defu'
 import consola from 'consola'
 import { singular } from 'pluralize'
 import { existsSync } from 'fs'
 import { join } from 'path'
 import { loadGql } from '@cloak-app/utils'
+import algoliasearch from 'algoliasearch'
 
 // This syncs entries to Algolia during SSG, including removing old records.
 export default function() {
@@ -13,14 +13,30 @@ export default function() {
 	if (process.env.NETLIFY && process.env.CONTEXT !== 'production') return
 
 	// Run syncing before generation so collections are SSGed with accurate data
-	return this.nuxt.hook('generate:before', () => {
-		startRecordSync(this.options)
+	return this.nuxt.hook('generate:before', async ({ options }) => {
+
+		// Make Algolia instance
+		const { appId, adminKey } = options.cloak.algolia.appId,
+			algoliaClient = algoliasearch(appId, adminKey)
+
+		// Start payload for startRecordSync
+		const startPayload = { algoliaClient, options }
+
+		// Add CMS instances
+		switch (getCms(options)) {
+			case 'craft':
+				const craftFactories = await import('@cloak-app/craft/factories')
+				startPayload.$craft = craftFactories.makeModuleCraftClient(this)
+		}
+
+		// Kick off sync
+		await startRecordSync(startPayload)
 	})
 }
 
 // The main entry point of the sync logic which does the options parsing before
 // actually running the sync.
-export async function startRecordSync(options) {
+export async function startRecordSync({ algoliaClient, $craft, options }) {
 
 	// Get package specific config
 	const config = options.cloak.algolia
@@ -35,11 +51,15 @@ export async function startRecordSync(options) {
 
 	// Build unpacked array of index sync configuration
 	log.info('Unpacking sync config')
-	const indexSyncConfigs = await Promise.all(config.sync.map(syncConfig => {
+	const syncConfigs = await Promise.all(config.sync.map(syncConfig => {
 		return unpackSyncConfig(syncConfig, options)
 	}))
 
-	console.log(indexSyncConfigs)
+	// Loop through indices and sync records
+	for (let syncConfig of syncConfigs) {
+		log.info(`Syncing to ${syncConfig.indexName}`)
+		await executeSync(syncConfig, { algoliaClient, $craft })
+	}
 }
 
 // The sync config supports a simple string shorthand as well as many options
@@ -144,43 +164,19 @@ function getCms(options) {
 	if (modules.includes('@cloak-app/craft')) return 'craft'
 }
 
-// Do the work of converting entries to records
-export async function syncIndices() {
+// Act on a syncConfig to sync records to Algolia
+async function executeSync({
+	indexName, query, variables, settings, records
+}, { algoliaClient, $craft }) {
 
-	console.log('start')
+	// Get index reference.  This will be created automatically if it doesn't
+	// exist yet
+	const index = algoliaClient.initIndex(indexName)
+	if (settings) await index.setSettings(settings)
 
-	await new Promise((resolve) => {
-		setTimeout(resolve, 1000)
-	})
-
-	console.log('done')
-
-	// Make the list of indices to create and loop through them
-	// const indexHandles = await getIndexHandles()
-
-	// // for (let i = 0; i < indexHandles.length; i++) {
-
-	// // }
-
-	// for await (const indexHandle of indexHandles) {
-	// 	try {
-	// 		results.push((await syncIndex(indexHandle)));
-	// 	} catch (error) {
-	// 		log(`Sync error on ${indexHandle}`);
-	// 		console.error(error)
-	// 	}
-	// }
-
-	// for (i = 0, len = indexHandles.length; i < len; i++) {
-	// 	indexHandle = indexHandles[i];
-	// 	try {
-	// 		// Sync the the index
-	// 		results.push((await syncIndex(indexHandle)));
-	// 	} catch (error1) {
-	// 		error = error1;
-	// 		log(`Sync error on ${indexHandle}`);
-	// 		results.push(console.error(error));
-	// 	}
-	// }
-	// return results;
-};
+	// Fetch records to index
+	if (!records) {
+		if ($craft) records = $craft.getEntries({ query, variables })
+		else throw 'CMS adapter not found'
+	}
+}
