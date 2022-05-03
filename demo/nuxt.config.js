@@ -1,3 +1,6 @@
+import { addPluginAfter } from '@cloak-app/utils'
+import { makeCraftMock } from './plugins/mock-craft'
+
 // Nuxt config
 export default {
 
