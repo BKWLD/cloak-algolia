@@ -1,13 +1,5 @@
-# [@cloak-app/algolia](https://github.com/BKWLD/cloak-algolia)
+<!-- Demo using instantsearch with the demo data -->
 
-## Vue Instantsearch with Synced Records
-
-This demos using [Vue InstantSearch](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/vue/) with the records that were synced by the module using mocked data.
-
-<instantsearch-demo></instantsearch-demo>
-
-
-```vue
 <template lang='pug'>
 
 ais-instant-search.instantsearch-demo(
@@ -19,6 +11,8 @@ ais-instant-search.instantsearch-demo(
 			.title {{ item.title }}
 
 </template>
+
+<!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
 import Vue from 'vue'
@@ -33,5 +27,14 @@ export default
 		searchClient: algoliasearch @$config.cloak.algolia.appId,
 			@$config.cloak.algolia.searchKey,
 
+
 </script>
-```
+
+<!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<style lang='stylus' scoped>
+
+.instantsearch-demo
+	color secondary-color
+
+</style>

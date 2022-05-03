@@ -7,10 +7,25 @@
 				"uri": "articles/example-1",
 				"image": [
 					{
-						"id": 2,
-						"width": 1024,
-						"height": 768,
-						"title": "Example Image"
+						"id": 11,
+						"width": 400,
+						"height": 400,
+						"title": "Example Image 1",
+						"url": "https://via.placeholder.com/400x400.png?text=Example+1"
+					}
+				]
+			},
+			{
+				"id": 2,
+				"title": "Example 2",
+				"uri": "articles/example-2",
+				"image": [
+					{
+						"id": 22,
+						"width": 400,
+						"height": 400,
+						"title": "Example Image 2",
+						"url": "https://via.placeholder.com/400x400.png?text=Example+2"
 					}
 				]
 			}
