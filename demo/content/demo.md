@@ -1,6 +1,6 @@
 # [@cloak-app/algolia](https://github.com/BKWLD/cloak-algolia)
 
-## Vue Instantsearch with Synced Records
+## Vue InstantSearch with Synced Records
 
 This demos using [Vue InstantSearch](https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/vue/) with the records that were synced by the module using mocked data.
 

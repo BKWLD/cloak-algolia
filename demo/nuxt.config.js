@@ -1,5 +1,6 @@
-import { addPluginAfter } from '@cloak-app/utils'
-import { makeCraftMock } from './plugins/mock-craft'
+import craftArticles from './stubs/craft-articles.json'
+import craftProducts from './stubs/craft-products.json'
+import shopifyProducts from './stubs/shopify-products.json'
 
 // Nuxt config
 export default {
@@ -25,6 +26,32 @@ export default {
 			sync: [
 				'articles'
 			]
+		},
+
+		// Mock Craft queries
+		craft: {
+			mocks: [
+				{
+					query: 'getEntriesToSync',
+					variables: { section: 'articles' },
+					response: craftArticles,
+				},
+				{
+					query: 'getEntriesToSync',
+					variables: { section: 'products' },
+					response: craftProducts,
+				}
+			]
+		},
+
+		// Mock Storefront queries
+		shopify: {
+			mocks: [
+				{
+					query: 'getAllProducts',
+					response: shopifyProducts
+				}
+			]
 		}
 	},
 
@@ -35,12 +62,4 @@ export default {
 
 	// @nuxt/content can't be loaded from module
 	modules: ['@nuxt/content'],
-
-	// Make a mock that is used in nuxt hooks of this module
-	craftMock: makeCraftMock(),
-
-	// Load plugin that mocks runtime craft data
-	extendPlugins(plugins) {
-		return addPluginAfter(plugins, 'craft-client', '~/plugins/mock-craft')
-	}
 }

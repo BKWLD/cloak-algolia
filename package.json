@@ -14,7 +14,7 @@
 		"generate": "nuxt generate demo --fail-on-error --target=static"
 	},
 	"dependencies": {
-		"@cloak-app/utils": "^1.6.0",
+		"@cloak-app/utils": "^1.7.0",
 		"algoliasearch": "^4.13.0",
 		"consola": "^2.0.0",
 		"esm": "^3.0.0",
@@ -23,7 +23,7 @@
 	},
 	"devDependencies": {
 		"@cloak-app/boilerplate": "^1.0.8",
-		"@cloak-app/craft": "^1.0.6",
+		"@cloak-app/craft": "^1.1.0",
 		"@cloak-app/demo-theme": "^1.0.5",
 		"@nuxt/content": "^1.14.0",
 		"axios-mock-adapter": "^1.20.0",

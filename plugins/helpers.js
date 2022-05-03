@@ -16,11 +16,13 @@ export default function ({ $config }, inject) {
 // "prod_en-US_articles" given a `name` of `articles`.
 export function algoliaIndexName(name, { $config } = {}) {
 	return [
-		$config.cloak &&
+		$config &&
+			$config.cloak &&
 			$config.cloak.boilerplate &&
 			$config.cloak.boilerplate.appEnv ||
 			process.env.APP_ENV,
-		$config.cloak &&
+		$config &&
+			$config.cloak &&
 			$config.cloak.craft &&
 			$config.cloak.craft.site ||
 			process.env.CMS_SITE,

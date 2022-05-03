@@ -62,6 +62,9 @@ export async function startRecordSync({ algoliaClient, $craft, options }) {
 		log.info(`Syncing to ${syncConfig.indexName}`)
 		await executeSync(syncConfig, { algoliaClient, $craft })
 	}
+
+	// Log success
+	log.success('Syncing to Algolia complete')
 }
 
 // The sync config supports a simple string shorthand as well as many options

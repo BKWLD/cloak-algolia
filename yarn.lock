@@ -1074,12 +1074,12 @@
     vue-routing-anchor-parser "^1.13.1"
     webpack-graphql-loader gpoitch/graphql-loader#gp/refresh
 
-"@cloak-app/craft@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@cloak-app/craft/-/craft-1.0.6.tgz#9ec86216b711acbbf4ff3733944bb4482329d550"
-  integrity sha512-XD2VJvKf7dOHUAd1Y5Z+//ZrcaIwcsvY3A5dhcXvu9tIY7yBCYjPMbEPU73S/PNJGrxI5npUUIRFRpGEXY18jQ==
+"@cloak-app/craft@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@cloak-app/craft/-/craft-1.1.0.tgz#1c13dd189718bdec50e00cec0d68d885465efa66"
+  integrity sha512-9VXRhiTIQiKYnl0+zMzNRgafjaViU4Devw/eYoWM0QK/0bq3AhK5orIbf0tYsYdaynJsVWcqNQO2oiSzmiaQbg==
   dependencies:
-    "@cloak-app/utils" "^1.5.0"
+    "@cloak-app/utils" "^1.7.0"
     "@nuxtjs/axios" "^5.0.0"
     consola "^2.15.3"
     lodash "^4.0.0"
@@ -1096,11 +1096,12 @@
   resolved "https://registry.yarnpkg.com/@cloak-app/utils/-/utils-1.5.0.tgz#7856e26397a1f93e782304d6c69db5b752c711fd"
   integrity sha512-RRLTey0a6fMRuQPqmAAZGr7Hm3oO7n29/n0rfZw0NZy4I0X9E3ebzl5KXu0aqT65KYK161j5BujT7z41OVWX4Q==
 
-"@cloak-app/utils@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@cloak-app/utils/-/utils-1.6.0.tgz#8589e5944357aa183c282c6e50c2f1825e94409e"
-  integrity sha512-eP1RGp4AXRcAqSKz6x/RDRtCXdmhz18zC1RsXP+/RRwa/Qf8O+RCWwLFH156yDOoRu50CzDolM0M5zVxJRYd7w==
+"@cloak-app/utils@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@cloak-app/utils/-/utils-1.7.0.tgz#ca7265fd3ff1347c0fd421286d196ce3ac61343a"
+  integrity sha512-PrI4jnNYXQzHfC897PF6zcr6ml9CZjLBcpdsRc/RWTRPzFB3pyZGkWrMp1lzakvUll7Z0j7uekUNANJiSna5CQ==
   dependencies:
+    axios-mock-adapter "^1.20.0"
     memfs "^3.0.0"
     slashes "^3.0.10"
     webpack "^4.0.0 || ^5.0.0"

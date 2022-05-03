@@ -67,11 +67,11 @@ export default {
           section: 'blog', // Craft section type
           type: 'article', // Craft entry type
 
-          // Or completely replace the query and variables...
+          // ... or completely replace the query and variables ...
           // query: `query($section:[String]) {...}`,
           // variables: { section: "blog", category: "..." },
 
-          // Or fetch all your records some other way...
+          // ... or fetch all your records some other way ...
           // records: [{ ... }],
         }
       ],
