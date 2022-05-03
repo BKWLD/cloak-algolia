@@ -1,1 +1,18 @@
-{}
+{
+	"data": {
+		"entries": [
+			{
+				"id": 1,
+				"title": "Clay Plant Pot - Craft",
+				"slug": "clay-plant-pot",
+				"uri": "products/clay-plant-pot"
+			},
+			{
+				"id": 2,
+				"title": "Copper Light - Craft",
+				"slug": "copper-light",
+				"uri": "products/copper-light"
+			}
+		]
+	}
+}

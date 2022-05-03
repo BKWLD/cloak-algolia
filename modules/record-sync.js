@@ -22,23 +22,31 @@ export default function() {
 			algoliaClient = algoliasearch(appId, adminKey)
 
 		// Start payload for startRecordSync
-		const startPayload = { algoliaClient, options }
+		const payload = { algoliaClient, options }
 
 		// Add CMS instances
 		switch (getCms(options)) {
 			case 'craft':
 				const craftFactories = await import('@cloak-app/craft/factories')
-				startPayload.$craft = craftFactories.makeModuleCraftClient(this)
+				payload.$craft = craftFactories.makeModuleCraftClient(this)
+		}
+
+		// Add Shopify instance
+		if (hasShopify(options)) {
+			const shopifyFactories = await import('@cloak-app/shopify/factories')
+			payload.$storefront = shopifyFactories.makeModuleStorefrontClient(this)
 		}
 
 		// Kick off sync
-		await startRecordSync(startPayload)
+		await startRecordSync(payload)
 	})
 }
 
 // The main entry point of the sync logic which does the options parsing before
 // actually running the sync.
-export async function startRecordSync({ algoliaClient, $craft, options }) {
+export async function startRecordSync({
+	algoliaClient, $craft, $storefront, options,
+}) {
 
 	// Get package specific config
 	const config = options.cloak.algolia
@@ -60,7 +68,7 @@ export async function startRecordSync({ algoliaClient, $craft, options }) {
 	// Loop through indices and sync records
 	for (let syncConfig of syncConfigs) {
 		log.info(`Syncing to ${syncConfig.indexName}`)
-		await executeSync(syncConfig, { algoliaClient, $craft })
+		await executeSync(syncConfig, { algoliaClient, $craft, $storefront })
 	}
 
 	// Log success
@@ -147,15 +155,25 @@ function getFragmentName(fragment) {
 }
 
 // Get the CMS name by looking for Cloak CMS modules.
-function getCms(options) {
-	const modules = [...options.modules, ...options.buildModules]
+export function getCms(options) {
+	const modules = allModules(options)
 	if (modules.includes('@cloak-app/craft')) return 'craft'
+}
+
+// Do we have a Shopify dependency
+export function hasShopify(options) {
+	return allModules(options).includes('@cloak-app/shopify')
+}
+
+// Get all modules
+function allModules(options) {
+	return [...options.modules, ...options.buildModules]
 }
 
 // Act on a syncConfig to sync records to Algolia
 async function executeSync({
-	indexName, query, variables, settings, records
-}, { algoliaClient, $craft }) {
+	indexName, query, variables, settings, records, mergeShopify,
+}, { algoliaClient, $craft, $storefront }) {
 
 	// Get index reference
 	const index = algoliaClient.initIndex(indexName)
@@ -172,6 +190,11 @@ async function executeSync({
 		else throw 'CMS adapter not found'
 	}
 
+	// Merge Shopify data
+	if (mergeShopify) {
+		records = await mergeShopifyData($storefront, records, mergeShopify)
+	}
+
 	// Add objectID to records automatically based on uri or id
 	records = records.map(record => ({
 		...record,
@@ -180,4 +203,43 @@ async function executeSync({
 
 	// Write entries to Algolia
 	await index.replaceAllObjects(records, { safe: true })
+}
+
+// Merge Shopify data with records
+function mergeShopifyData($storefront, records, shopifyEntryType) {
+	switch(shopifyEntryType) {
+		case 'products': return mergeShopifyProducts($storefront, records)
+		default: throw `Unexpected shopifyEntryType ${shopifyEntryType}`
+	}
+}
+
+// Merge Shopify products with records
+async function mergeShopifyProducts($storefront, records) {
+
+	// Load fragment
+	const fragmentPath = '@cloak-app/shopify/queries/fragments/product.gql',
+		fragment = await loadGql(fragmentPath)
+
+	// Run query
+	const { products } = await $storefront.execute({ query: `
+		query getAllProducts {
+			products(first: 250) {
+				edges {
+					node { ...product }
+				}
+			}
+		}
+	` + fragment})
+
+	// Do the merging
+	return mergeShopifyDataIntoRecords(records, products)
+}
+
+// Loop through records and merge product data when there is a match.  When
+// there is no match, filter the record
+function mergeShopifyDataIntoRecords(records, products) {
+	return records.map(record => {
+		const product = products.find(product => product.handle == record.slug)
+		if (product) return { ...record, ...product }
+	}).filter(record => !!record)
 }

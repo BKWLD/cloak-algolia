@@ -7,10 +7,20 @@ ais-instant-search.instantsearch-demo(
 	:search-client='searchClient'
 	:index-name='$algoliaIndexName("articles")')
 
-	//- Render a couple Instantsearch widgets
+	//- Shared search box
 	ais-search-box
+
+	//- Render articles results
 	ais-hits: template(#item='{ item }')
-		.title {{ item.title }}
+		| {{ item.title }}
+		span.badge Article
+
+	//- Render products results
+	ais-index(:index-name='$algoliaIndexName("products")')
+		ais-hits: template(#item='{ item }')
+			| {{ item.title }}
+			span.badge Product
+
 
 </template>
 
@@ -41,5 +51,16 @@ export default
 
 .instantsearch-demo
 	color secondary-color
+
+.badge
+	border 1px solid currentColor
+	font-size .75em
+	border-radius 2px
+	display inline-block
+	margin-left 1em
+	padding-h 0.5em
+
+>>> .ais-Hits-item
+	padding-v 1em
 
 </style>

@@ -10,6 +10,7 @@ export default {
 		'@cloak-app/boilerplate',
 		'@cloak-app/demo-theme',
 		'@cloak-app/craft',
+		'@cloak-app/shopify',
 		'../nuxt',
 	],
 
@@ -24,7 +25,11 @@ export default {
 		// Sync settings
 		algolia: {
 			sync: [
-				'articles'
+				'articles',
+				{
+					name: 'products',
+					mergeShopify: 'products',
+				}
 			]
 		},
 

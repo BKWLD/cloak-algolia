@@ -1,0 +1,7 @@
+# An product entry when shown in a listing
+fragment product on products_product_Entry {
+	id
+	title
+	slug
+	uri
+}

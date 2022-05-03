@@ -1074,22 +1074,41 @@
     vue-routing-anchor-parser "^1.13.1"
     webpack-graphql-loader gpoitch/graphql-loader#gp/refresh
 
-"@cloak-app/craft@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@cloak-app/craft/-/craft-1.1.0.tgz#1c13dd189718bdec50e00cec0d68d885465efa66"
-  integrity sha512-9VXRhiTIQiKYnl0+zMzNRgafjaViU4Devw/eYoWM0QK/0bq3AhK5orIbf0tYsYdaynJsVWcqNQO2oiSzmiaQbg==
+"@cloak-app/craft@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@cloak-app/craft/-/craft-1.1.1.tgz#d17549d70e9dd90637009bcc1e12c8ba34c6b7b1"
+  integrity sha512-asZahnP0xOysv1fYhWx4DDawU5A91OkbmyTuByRn5NYNR1JmywXD2D75u3CCUNgpR7Rhb1kmM3wVlg8VrfnHTA==
   dependencies:
-    "@cloak-app/utils" "^1.7.0"
+    "@cloak-app/utils" "^1.7.1"
     "@nuxtjs/axios" "^5.0.0"
     consola "^2.15.3"
     lodash "^4.0.0"
 
-"@cloak-app/demo-theme@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@cloak-app/demo-theme/-/demo-theme-1.0.5.tgz#9ac283e0a383025284afed66b9b21526d4294a01"
-  integrity sha512-oq5noLz5r6wmMJtng8VbM1jLzI2kJZNvpen4K7feP6v01W0d5LzTiRMVauWHoghq6o8wFwDcgc5g46Mu01oq7Q==
+"@cloak-app/demo-theme@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@cloak-app/demo-theme/-/demo-theme-1.0.6.tgz#99de986efa6180bf17fd86723e9dab5b52eec5a1"
+  integrity sha512-dbMMcmIWRte07QLTmwljp30MaEUdogAgAOKxEtBLcm8qgxW5knD6FS0gGs4RRMPjEgMgaag1a1rRPQOvpM5hZg==
   dependencies:
     prism-themes "^1.9.0"
+
+"@cloak-app/shopify@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@cloak-app/shopify/-/shopify-0.1.0.tgz#baaf19c21f7b32f9a89d879d7c3eb6f5e8736d15"
+  integrity sha512-kdpiJEMxEVe0BwFvxJWqQQ9X6vW/Sk60e18wuFzZVJDmt7fnhj5GNh1Nuwc3xMPxsNAeIdv+XtI5+biSIX3AMw==
+  dependencies:
+    "@cloak-app/utils" "^1.2.0"
+    lodash "^4.0.0"
+
+"@cloak-app/utils@^1.2.0":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@cloak-app/utils/-/utils-1.7.2.tgz#c8a8b1aa48dcd81884d5ee7661caa7a47dfa20b5"
+  integrity sha512-zH9/3IRMRVgPCLqwq+DIP0fyfvwCUojdKSXO2gWFFgpa7AMYp8icccqKyD9Hze5ksFVxdTgCPFA/vdtGfxqOZQ==
+  dependencies:
+    axios-mock-adapter "^1.20.0"
+    memfs "^3.0.0"
+    slashes "^3.0.10"
+    webpack "^4.0.0 || ^5.0.0"
+    webpack-graphql-loader gpoitch/graphql-loader#gp/refresh
 
 "@cloak-app/utils@^1.5.0":
   version "1.5.0"
@@ -1100,6 +1119,17 @@
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/@cloak-app/utils/-/utils-1.7.0.tgz#ca7265fd3ff1347c0fd421286d196ce3ac61343a"
   integrity sha512-PrI4jnNYXQzHfC897PF6zcr6ml9CZjLBcpdsRc/RWTRPzFB3pyZGkWrMp1lzakvUll7Z0j7uekUNANJiSna5CQ==
+  dependencies:
+    axios-mock-adapter "^1.20.0"
+    memfs "^3.0.0"
+    slashes "^3.0.10"
+    webpack "^4.0.0 || ^5.0.0"
+    webpack-graphql-loader gpoitch/graphql-loader#gp/refresh
+
+"@cloak-app/utils@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@cloak-app/utils/-/utils-1.7.1.tgz#3e4f26b8dfeba0ccbfe2ac03c8930aa48dd130e5"
+  integrity sha512-FK4EbcDFqC6oCqIWz7UCcQc/HbI5KOPEt7xBi8tPSIplo0BxPzNVMrc4ehChEn3gLrvq+VOhxfrCFNdTvQqVqg==
   dependencies:
     axios-mock-adapter "^1.20.0"
     memfs "^3.0.0"

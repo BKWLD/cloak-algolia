@@ -3,29 +3,27 @@
 		"entries": [
 			{
 				"id": 1,
-				"title": "Example 1",
-				"uri": "articles/example-1",
+				"title": "All about Copper",
+				"uri": "articles/about-copper",
 				"image": [
 					{
 						"id": 11,
 						"width": 400,
 						"height": 400,
-						"title": "Example Image 1",
-						"url": "https://via.placeholder.com/400x400.png?text=Example+1"
+						"url": "https://via.placeholder.com/400x400.png?text=Copper+Light"
 					}
 				]
 			},
 			{
 				"id": 2,
-				"title": "Example 2",
-				"uri": "articles/example-2",
+				"title": "Plant Pots are the best",
+				"uri": "articles/plant-pots",
 				"image": [
 					{
 						"id": 22,
 						"width": 400,
 						"height": 400,
-						"title": "Example Image 2",
-						"url": "https://via.placeholder.com/400x400.png?text=Example+2"
+						"url": "https://via.placeholder.com/400x400.png?text=Clay+Pot"
 					}
 				]
 			}

@@ -80,6 +80,24 @@ export default {
 }
 ```
 
+Another common pattern is merging Shopify product data with CMS product data. This can be easily accomplished with the `mergeShopify` option:
+
+```js
+// nuxt.config.js
+export default {
+  cloak: {
+    algolia: {
+      sync: [{
+        name: 'products,
+        mergeShopify: 'products',
+      }],
+    }
+  }
+}
+```
+
+This uses the [`@cloak-app/shopify`](https://github.com/BKWLD/cloak-shopify) package to fetch products that match the CMS products, comparing CMS slugs with Shopify handles.  The [`product` fragment](https://github.com/BKWLD/cloak-shopify/blob/master/queries/fragments/product.gql) is used with the Shopify data.
+
 ### CLI
 
 You can manually run the sync operation by running:

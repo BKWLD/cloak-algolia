@@ -1,1 +1,176 @@
-{}
+{
+	"data": {
+		"products": {
+			"edges": [
+				{
+					"node": {
+						"id": "gid://shopify/Product/7666779783391",
+						"handle": "clay-plant-pot",
+						"title": "Clay Plant Pot",
+						"productType": "Outdoor",
+						"vendor": "Company 123",
+						"onlineStoreUrl": null,
+						"availableForSale": true,
+						"options": [
+							{
+								"name": "Size",
+								"values": [
+									"Regular",
+									"Large"
+								]
+							}
+						],
+						"variants": {
+							"edges": [
+								{
+									"node": {
+										"id": "gid://shopify/ProductVariant/42866648121567",
+										"sku": null,
+										"title": "Regular",
+										"image": {
+											"id": "gid://shopify/ProductImage/37257345204447",
+											"src": "https://cdn.shopify.com/s/files/1/0639/4386/8639/products/single-sprout-in-a-pot_925x_0eef53b5-50ef-459b-8796-916dfd6d1813.jpg?v=1649259618",
+											"altText": null,
+											"width": 925,
+											"height": 617
+										},
+										"selectedOptions": [
+											{
+												"name": "Size",
+												"value": "Regular"
+											}
+										],
+										"price": {
+											"amount": "9.99"
+										},
+										"compareAtPrice": null,
+										"available": true,
+										"sellingPlanAllocations": {
+											"edges": []
+										}
+									}
+								},
+								{
+									"node": {
+										"id": "gid://shopify/ProductVariant/42866648154335",
+										"sku": null,
+										"title": "Large",
+										"image": {
+											"id": "gid://shopify/ProductImage/37257345204447",
+											"src": "https://cdn.shopify.com/s/files/1/0639/4386/8639/products/single-sprout-in-a-pot_925x_0eef53b5-50ef-459b-8796-916dfd6d1813.jpg?v=1649259618",
+											"altText": null,
+											"width": 925,
+											"height": 617
+										},
+										"selectedOptions": [
+											{
+												"name": "Size",
+												"value": "Large"
+											}
+										],
+										"price": {
+											"amount": "15.99"
+										},
+										"compareAtPrice": null,
+										"available": true,
+										"sellingPlanAllocations": {
+											"edges": []
+										}
+									}
+								}
+							]
+						},
+						"images": {
+							"edges": [
+								{
+									"node": {
+										"id": "gid://shopify/ProductImage/37257345204447",
+										"src": "https://cdn.shopify.com/s/files/1/0639/4386/8639/products/single-sprout-in-a-pot_925x_0eef53b5-50ef-459b-8796-916dfd6d1813.jpg?v=1649259618",
+										"altText": null,
+										"width": 925,
+										"height": 617
+									}
+								},
+								{
+									"node": {
+										"id": "gid://shopify/ProductImage/37257345237215",
+										"src": "https://cdn.shopify.com/s/files/1/0639/4386/8639/products/pot-with-a-single-sprout_925x_d1213035-c126-47fa-a830-0f008564773c.jpg?v=1649259618",
+										"altText": null,
+										"width": 925,
+										"height": 617
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"node": {
+						"id": "gid://shopify/Product/7666779848927",
+						"handle": "copper-light",
+						"title": "Copper Light",
+						"productType": "Indoor",
+						"vendor": "Company 123",
+						"onlineStoreUrl": null,
+						"availableForSale": true,
+						"options": [
+							{
+								"name": "Title",
+								"values": [
+									"Default Title"
+								]
+							}
+						],
+						"variants": {
+							"edges": [
+								{
+									"node": {
+										"id": "gid://shopify/ProductVariant/42866648350943",
+										"sku": null,
+										"title": "Default Title",
+										"image": {
+											"id": "gid://shopify/ProductImage/37257345564895",
+											"src": "https://cdn.shopify.com/s/files/1/0639/4386/8639/products/copper-light-in-bedroom_925x_6cb4a7cb-dbac-44bc-8ac3-8a8bd55040e5.jpg?v=1649259620",
+											"altText": null,
+											"width": 925,
+											"height": 617
+										},
+										"selectedOptions": [
+											{
+												"name": "Title",
+												"value": "Default Title"
+											}
+										],
+										"price": {
+											"amount": "59.99"
+										},
+										"compareAtPrice": {
+											"amount": "75.0"
+										},
+										"available": true,
+										"sellingPlanAllocations": {
+											"edges": []
+										}
+									}
+								}
+							]
+						},
+						"images": {
+							"edges": [
+								{
+									"node": {
+										"id": "gid://shopify/ProductImage/37257345564895",
+										"src": "https://cdn.shopify.com/s/files/1/0639/4386/8639/products/copper-light-in-bedroom_925x_6cb4a7cb-dbac-44bc-8ac3-8a8bd55040e5.jpg?v=1649259620",
+										"altText": null,
+										"width": 925,
+										"height": 617
+									}
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	}
+}

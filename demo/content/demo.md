@@ -15,10 +15,19 @@ ais-instant-search(
   :search-client='searchClient'
   :index-name='$algoliaIndexName("articles")')
 
-  //- Render a couple Instantsearch widgets
+  //- Shared search box
   ais-search-box
+
+  //- Render articles results
   ais-hits: template(#item='{ item }')
-    .title {{ item.title }}
+    | {{ item.title }}
+    span.badge Article
+
+  //- Render products results
+  ais-index(:index-name='$algoliaIndexName("products")')
+    ais-hits: template(#item='{ item }')
+      | {{ item.title }}
+      span.badge Product
 
 </template>
 
