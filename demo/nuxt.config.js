@@ -22,11 +22,15 @@ export default {
 
 		// Sync settings
 		algolia: {
-			syncHook: 'generate:done',
+			// syncHook: 'generate:done',
 			sync: [
 				'articles'
 			]
 		}
+	},
+
+	build: {
+		quiet: false,
 	},
 
 	// @nuxt/content can't be loaded from module
