@@ -32,11 +32,53 @@ Set these properties within `cloak: { algolia: { ... } }` in the nuxt.config.js:
 
 ### Sync
 
-The `sync` module option is an array that takes either objects or strings.  The full object payload looks like:
+In the `sync` objects, simplest form, use a string config item:
 
-- `name` - Used to generate defaults as described below.  Ex: "articles".
-- `indexName` - The name of the Algolia index that will be written to.  If empty, is set to `${env}_${site}_${name}` where `env` is set to `$config.cloak.boilerplate.appEnv` and `site` is set to `$config.cloak.craft.site`.
-- *TODO* - Finish documenting
+```js
+// nuxt.config.js
+export default {
+  cloak: {
+    algolia: {
+      sync: ['articles'],
+    }
+  }
+}
+```
+
+This does a couple a couple of things:
+
+- It will create an Algolia index automatically during `yarn generate` that named `${env}_${site}_${name}` where `env` is derived from `$config.cloak.boilerplate.appEnv` and `site` is derived from `$config.cloak.craft.site`.  For example, `prod_en-US_articles`.
+
+- It will query the CMS for records matching that name.  If using Craft, this means querying for all entries that have a section of `articles`.  The composition of these entry objects is made using a gql fragment that is expected to live at `~/queries/fragments/article.gql`.  This should be the same fragment that is used to render these entries in other places on the site where they are listed.  Thus, if you render these entries in some sort of card UX, the objects returned by Algolia and the objects returned by the CMS should be identical so you can directly render the card components without any massaging of Algolia data.
+
+The `sync` array also supports an expanded form, if you want to tweak any of these names.
+
+```js
+// nuxt.config.js
+import { join } from 'path'
+export default {
+  cloak: {
+    algolia: {
+      sync: [
+        {
+          name: 'blogs',
+          indexName: 'prod_articles',
+          fragmentPath: join(__dirname, 'path/to/fragment.gql'),
+          section: 'blog', // Craft section type
+          type: 'article', // Craft entry type
+
+          // Or completely replace the query and variables...
+          // query: `query($section:[String]) {...}`,
+          // variables: { section: "blog", category: "..." },
+
+          // Or fetch all your records some other way...
+          // records: [{ ... }],
+        }
+      ],
+    }
+  }
+}
+```
 
 ### CLI
 
