@@ -6,7 +6,4 @@ fragment article on articles_article_Entry {
 	title
 	uri
 	image { ...image }
-	entries(site: "example") {
-		whatever
-	}
 }

@@ -176,7 +176,16 @@ async function executeSync({
 
 	// Fetch records to index
 	if (!records) {
-		if ($craft) records = $craft.getEntries({ query, variables })
+		if ($craft) records = await $craft.getEntries({ query, variables })
 		else throw 'CMS adapter not found'
 	}
+
+	// Add objectID to records automatically based on uri or id
+	records = records.map(record => ({
+		...record,
+		objectID: record.uri || record.id
+	}))
+
+	// Write entries to Algolia
+	await index.replaceAllObjects(records, { safe: true })
 }

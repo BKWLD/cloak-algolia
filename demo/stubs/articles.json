@@ -1,0 +1,19 @@
+{
+	"data": {
+		"entries": [
+			{
+				"id": 1,
+				"title": "Example 1",
+				"uri": "articles/example-1",
+				"image": [
+					{
+						"id": 2,
+						"width": 1024,
+						"height": 768,
+						"title": "Example Image"
+					}
+				]
+			}
+		]
+	}
+}

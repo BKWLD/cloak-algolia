@@ -6,6 +6,7 @@ import parseArgs from 'minimist'
 import { startRecordSync } from './modules/record-sync'
 import algoliasearch from 'algoliasearch'
 import { makeCraftClient } from '@cloak-app/craft/factories'
+import { makeCraftMock } from './demo/plugins/mock-craft'
 
 // Parse CLI args
 const argv = parseArgs(process.argv.slice(2)),
@@ -19,10 +20,7 @@ loadNuxtConfig({ rootDir }).then(config => {
 		process.env.ALGOLIA_ADMIN_KEY)
 
 	// Make Craft client
-	const $craft = makeCraftClient({
-		endpoint: process.env.CMS_ENDPOINT,
-		site: process.env.CMS_SITE,
-	})
+	const $craft = argv.mock ? makeCraftMock() : makeCraftClient()
 
 	// Kick off sync
 	return startRecordSync({
