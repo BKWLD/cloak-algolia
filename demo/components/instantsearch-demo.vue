@@ -25,7 +25,7 @@ export default
 
 	# Build the client
 	data: ->
-		{ appId, searchKey } = $config.cloak.algolia
+		{ appId, searchKey } = @$config.cloak.algolia
 		searchClient: algoliasearch appId, searchKey
 
 </script>

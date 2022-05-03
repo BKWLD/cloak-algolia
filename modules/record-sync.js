@@ -16,7 +16,7 @@ export default function() {
 	return this.nuxt.hook('generate:before', async ({ options }) => {
 
 		// Make Algolia instance
-		const { appId, adminKey } = options.cloak.algolia.appId,
+		const { appId, adminKey } = options.cloak.algolia,
 			algoliaClient = algoliasearch(appId, adminKey)
 
 		// Start payload for startRecordSync
