@@ -29,6 +29,7 @@ export default {
 		}
 	},
 
+	// Always show logs
 	build: {
 		quiet: false,
 	},
