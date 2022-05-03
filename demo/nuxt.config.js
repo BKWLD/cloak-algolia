@@ -28,4 +28,12 @@ export default {
 
 	// @nuxt/content can't be loaded from module
 	modules: ['@nuxt/content'],
+
+	// Make a mock that is used in nuxt hooks of this module
+	craftMock: makeCraftMock(),
+
+	// Load plugin that mocks runtime craft data
+	extendPlugins(plugins) {
+		return addPluginAfter(plugins, 'craft-client', '~/plugins/mock-craft')
+	}
 }

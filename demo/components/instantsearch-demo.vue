@@ -5,10 +5,11 @@
 ais-instant-search.instantsearch-demo(
 	:search-client='searchClient'
 	index-name='dev_en-US_articles')
+
 	ais-search-box
-	ais-hits
-		template(#item='{ item }')
-			.title {{ item.title }}
+
+	ais-hits: template(#item='{ item }')
+		.title {{ item.title }}
 
 </template>
 
@@ -24,9 +25,8 @@ export default
 
 	# Build the client
 	data: ->
-		searchClient: algoliasearch @$config.cloak.algolia.appId,
-			@$config.cloak.algolia.searchKey,
-
+		{ appId, searchKey } = $config.cloak.algolia
+		searchClient: algoliasearch appId, searchKey
 
 </script>
 

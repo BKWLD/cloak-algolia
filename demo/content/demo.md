@@ -13,10 +13,11 @@ This demos using [Vue InstantSearch](https://www.algolia.com/doc/guides/building
 ais-instant-search.instantsearch-demo(
 	:search-client='searchClient'
 	index-name='dev_en-US_articles')
+
 	ais-search-box
-	ais-hits
-		template(#item='{ item }')
-			.title {{ item.title }}
+
+	ais-hits: template(#item='{ item }')
+    .title {{ item.title }}
 
 </template>
 
@@ -28,10 +29,10 @@ import algoliasearch from 'algoliasearch/lite'
 Vue.use InstantSearch
 export default
 
-	# Build the client
-	data: ->
-		searchClient: algoliasearch @$config.cloak.algolia.appId,
-			@$config.cloak.algolia.searchKey,
+  # Build the client
+  data: ->
+		{ appId, searchKey } = $config.cloak.algolia
+		searchClient: algoliasearch appId, searchKey
 
 </script>
 ```
