@@ -13,8 +13,9 @@ export default function() {
 	// indices
 	if (process.env.NETLIFY && process.env.CONTEXT !== 'production') return
 
-	// Run syncing before generation so collections are SSGed with accurate data
-	return this.nuxt.hook('generate:before', async ({ options }) => {
+	// Hook into Nuxt lifecycle
+	const hookName = this.options.cloak.algolia.syncHook
+	return this.nuxt.hook(hookName, async ({ options }) => {
 
 		// Make Algolia instance
 		const { appId, adminKey } = options.cloak.algolia,
