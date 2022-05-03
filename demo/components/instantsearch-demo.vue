@@ -2,12 +2,13 @@
 
 <template lang='pug'>
 
+//- Use $algoliaIndexName helper to make index name
 ais-instant-search.instantsearch-demo(
 	:search-client='searchClient'
-	index-name='dev_en-US_articles')
+	:index-name='$algoliaIndexName("articles")')
 
+	//- Render a couple Instantsearch widgets
 	ais-search-box
-
 	ais-hits: template(#item='{ item }')
 		.title {{ item.title }}
 
@@ -16,14 +17,18 @@ ais-instant-search.instantsearch-demo(
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
+
+# Bootstrap instantsearch per:
+# https://www.algolia.com/doc/guides/building-search-ui/getting-started/vue/#initialization
 import Vue from 'vue'
 import InstantSearch from 'vue-instantsearch'
 import 'instantsearch.css/themes/satellite-min.css'
 import algoliasearch from 'algoliasearch/lite'
 Vue.use InstantSearch
+
 export default
 
-	# Build the client
+	# Build the client using publicRuntimeConfig values
 	data: ->
 		{ appId, searchKey } = @$config.cloak.algolia
 		searchClient: algoliasearch appId, searchKey

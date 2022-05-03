@@ -4,6 +4,7 @@ import { existsSync } from 'fs'
 import { join } from 'path'
 import { loadGql } from '@cloak-app/utils'
 import algoliasearch from 'algoliasearch'
+import { algoliaIndexName } from '../plugins/helpers'
 
 // This syncs entries to Algolia during SSG, including removing old records.
 export default function() {
@@ -72,7 +73,9 @@ async function unpackSyncConfig(syncConfig, options) {
 
 	// Build the indexName automatically
 	if (!syncConfig.indexName) {
-		syncConfig.indexName = makeIndexName(syncConfig.name, options)
+		syncConfig.indexName = algoliaIndexName(syncConfig.name, {
+			$config: options.publicRuntimeConfig
+		})
 	}
 
 	// Build query if one wasn't explicitly defined
@@ -91,25 +94,6 @@ async function unpackSyncConfig(syncConfig, options) {
 
 	// Return the final config object
 	return syncConfig
-}
-
-// Make the index name given the syncConfig name. This draws both from
-// publicRuntimeConfig, for when running normaly through a Nuxt module hook,
-// and from ENV, from when running from CLI. This makes an index name like:
-// "prod_en-uS_articles".
-function makeIndexName(name, options) {
-	const $config = options.publicRuntimeConfig || {}
-	return [
-		$config.cloak &&
-			$config.cloak.boilerplate &&
-			$config.cloak.boilerplate.appEnv ||
-			process.env.APP_ENV,
-		$config.cloak &&
-			$config.cloak.craft &&
-			$config.cloak.craft.site ||
-			process.env.CMS_SITE,
-		name
-	].filter(val => !!val).join('_')
 }
 
 // Get the default query for the CMS

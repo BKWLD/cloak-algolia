@@ -31,6 +31,9 @@ export default function() {
 	if (this.options.cloak.algolia.sync.length) {
 		requireOnce(this, join(__dirname, 'modules/record-sync'))
 	}
+
+	// Register helpers
+	this.addPlugin(join(__dirname, 'plugins/helpers.js'))
 }
 
 // Required for published modules

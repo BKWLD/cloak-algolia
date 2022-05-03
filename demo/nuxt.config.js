@@ -22,7 +22,7 @@ export default {
 
 		// Sync settings
 		algolia: {
-			// syncHook: 'generate:done',
+			syncHook: 'generate:done',
 			sync: [
 				'articles'
 			]
