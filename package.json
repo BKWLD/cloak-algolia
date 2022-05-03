@@ -14,8 +14,8 @@
 		"generate": "nuxt generate demo --fail-on-error --target=static"
 	},
 	"dependencies": {
-		"@cloak-app/shopify": "^0.1.0",
-		"@cloak-app/utils": "^1.7.0",
+		"@cloak-app/shopify": "^0.2.0",
+		"@cloak-app/utils": "^1.7.2",
 		"algoliasearch": "^4.13.0",
 		"consola": "^2.0.0",
 		"esm": "^3.0.0",
