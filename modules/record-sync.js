@@ -169,10 +169,14 @@ async function executeSync({
 	indexName, query, variables, settings, records
 }, { algoliaClient, $craft }) {
 
-	// Get index reference.  This will be created automatically if it doesn't
-	// exist yet
+	// Get index reference
 	const index = algoliaClient.initIndex(indexName)
+
+	// Set index settings. If this index hasn't been created for, use this to
+	// create the index to work around issues I experienced where the index
+	// wouldn't be created when using replaceAllObjects.
 	if (settings) await index.setSettings(settings)
+	else if (!await index.exists()) await index.setSettings({})
 
 	// Fetch records to index
 	if (!records) {
