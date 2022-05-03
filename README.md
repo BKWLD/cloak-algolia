@@ -32,7 +32,7 @@ Set these properties within `cloak: { algolia: { ... } }` in the nuxt.config.js:
 
 ### Sync
 
-In the `sync` objects, simplest form, use a string config item:
+In the `sync` array's simplest form, give it a simple string per index:
 
 ```js
 // nuxt.config.js
