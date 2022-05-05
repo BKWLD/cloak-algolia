@@ -103,7 +103,7 @@ This uses the [`@cloak-app/shopify`](https://github.com/BKWLD/cloak-shopify) pac
 You can manually run the sync operation by running:
 
 ```sh
-$ yarn @cloak-app/algolia
+$ yarn algolia-sync
 ```
 
 ## Contributing
