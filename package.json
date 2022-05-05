@@ -1,6 +1,6 @@
 {
 	"name": "@cloak-app/algolia",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Record syncing generate hook and SSR components for Algolia with Nuxt.",
 	"repository": "git@github.com:BKWLD/cloak-algolia.git",
 	"author": "Bukwild <info@bukwild.com>",
