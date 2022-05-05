@@ -8,6 +8,7 @@ import algoliasearch from 'algoliasearch'
 import { makeModuleCraftClient } from '@cloak-app/craft/factories'
 import { makeModuleStorefrontClient } from '@cloak-app/shopify/factories'
 import { mockAxiosGql } from '@cloak-app/utils'
+import { defu } from 'defu'
 
 // Parse CLI args
 const argv = parseArgs(process.argv.slice(2)),
@@ -15,7 +16,28 @@ const argv = parseArgs(process.argv.slice(2)),
 
 // Load Nuxt config and then pass options off to the record-sync executor
 loadNuxtConfig({ rootDir }).then(config => {
-	const quasiModuleContainer = { options: config }
+
+	// Make an object that is similar to the Nuxt moduleContainer using the config
+	// object and some defaults from ENV like the CMS adpaters use
+	const quasiModuleContainer = defu(
+		{ options: config },
+		{
+			options: {
+				cloak: {
+					craft: {
+						endpoint: process.env.CMS_ENDPOINT,
+						site: process.env.CMS_SITE,
+					},
+					shopify: {
+						url: process.env.SHOPIFY_URL,
+						storefront: {
+							token: process.env.SHOPIFY_STOREFRONT_TOKEN,
+							version: 'unstable',
+						}
+					}
+				}
+			}
+	})
 
 	// Make Algolia client
 	const algoliaClient = algoliasearch(process.env.ALGOLIA_APP_ID,

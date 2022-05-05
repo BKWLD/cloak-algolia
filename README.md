@@ -100,10 +100,10 @@ This uses the [`@cloak-app/shopify`](https://github.com/BKWLD/cloak-shopify) pac
 
 ### CLI
 
-You can manually run the sync operation by running:
+You can manually run the sync operation by running the following from *within your Nuxt directory*:
 
 ```sh
-$ yarn @cloak-app/algolia
+$ yarn algolia-sync
 ```
 
 ## Contributing

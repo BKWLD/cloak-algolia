@@ -167,7 +167,7 @@ export function hasShopify(options) {
 
 // Get all modules
 function allModules(options) {
-	return [...options.modules, ...options.buildModules]
+	return [...(options.modules || []), ...(options.buildModules || [])]
 }
 
 // Act on a syncConfig to sync records to Algolia
