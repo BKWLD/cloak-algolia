@@ -55,7 +55,6 @@ The `sync` array also supports an expanded form, if you want to tweak any of the
 
 ```js
 // nuxt.config.js
-import { join } from 'path'
 export default {
   cloak: {
     algolia: {
@@ -63,7 +62,7 @@ export default {
         {
           name: 'blogs',
           indexName: 'prod_articles',
-          fragmentPath: join(__dirname, 'path/to/fragment.gql'),
+          fragmentPath: 'path/to/fragment.gql',
           section: 'blog', // Craft section type
           type: 'article', // Craft entry type
 
