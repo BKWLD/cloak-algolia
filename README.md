@@ -62,6 +62,8 @@ export default {
         {
           name: 'blogs',
           indexName: 'prod_articles',
+          
+          // Use Craft helpers ...
           fragmentPath: 'path/to/fragment.gql',
           section: 'blog', // Craft section type
           type: 'article', // Craft entry type
@@ -72,6 +74,10 @@ export default {
 
           // ... or fetch all your records some other way ...
           // records: [{ ... }],
+          
+          // Set Algolia index settings
+          // https://www.algolia.com/doc/api-reference/settings-api-parameters/
+          settings: {},
         }
       ],
     }
