@@ -101,7 +101,8 @@ async function unpackSyncConfig(syncConfig, options) {
 		syncConfig.variables = {
 			section: syncConfig.section || syncConfig.name,
 			type: syncConfig.type,
-			site: syncConfig.site || process.env.CMS_SITE
+			site: syncConfig.site || process.env.CMS_SITE,
+			algoliaSync: true,
 		}
 	}
 
@@ -173,7 +174,7 @@ function allModules(options) {
 
 // Act on a syncConfig to sync records to Algolia
 async function executeSync({
-	indexName, query, variables, settings, records, mergeShopify,
+	indexName, query, variables, settings, rules, synonyms, records, mergeShopify,
 }, { algoliaClient, $craft, $storefront }) {
 
 	// Get index reference
@@ -184,6 +185,10 @@ async function executeSync({
 	// wouldn't be created when using replaceAllObjects.
 	if (settings) await index.setSettings(settings)
 	else if (!await index.exists()) await index.setSettings({})
+
+	// Set rules and synonyms
+	if (rules) await index.replaceAllRules(rules)
+	if (synonyms) await index.replaceAllSynonyms(synonyms)
 
 	// Fetch records to index
 	if (!records) {
