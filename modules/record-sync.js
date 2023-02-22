@@ -126,7 +126,7 @@ async function buildQueryFromFragment(syncConfig, options) {
 
 	// Load the fragment content
 	const fragment = await loadGql(fragmentFullPath),
-		fragmentName = getFragmentName(fragment)
+		fragmentNames = syncConfig.fragmentNames || [ getFragmentName(fragment) ]
 
 	// Build the CMS specific query
 	switch (getCms(options)) {
@@ -139,7 +139,7 @@ async function buildQueryFromFragment(syncConfig, options) {
 						site:    $site
 						section: $section
 						type:    $type) {
-						...${fragmentName}
+						${fragmentNames.map(name => `...${name}\n`)}
 					}
 				}
 			` + fragment

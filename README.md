@@ -62,11 +62,12 @@ export default {
         {
           name: 'blogs',
           indexName: 'prod_articles',
-          
+
           // Use Craft helpers ...
           fragmentPath: 'path/to/fragment.gql',
+          fragmentNames: ['blog', 'pressRelease'], // Optional
           section: 'blog', // Craft section type
-          type: 'article', // Craft entry type
+          type: 'article', // Craft entry type, optional
 
           // ... or completely replace the query and variables ...
           // query: `query($section:[String]) {...}`,
@@ -74,7 +75,7 @@ export default {
 
           // ... or fetch all your records some other way ...
           // records: [{ ... }],
-          
+
           // Set Algolia index settings
           // https://www.algolia.com/doc/api-reference/settings-api-parameters/
           settings: {},
