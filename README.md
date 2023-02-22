@@ -79,6 +79,14 @@ export default {
           // Set Algolia index settings
           // https://www.algolia.com/doc/api-reference/settings-api-parameters/
           settings: {},
+
+          // Set Algolia rules
+          // https://www.algolia.com/doc/api-client/methods/rules/
+          rules: [],
+
+          // Set Algolia synonyms
+          // https://www.algolia.com/doc/api-client/methods/synonyms/
+          synonyms: [],
         }
       ],
     }
