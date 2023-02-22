@@ -101,7 +101,8 @@ async function unpackSyncConfig(syncConfig, options) {
 		syncConfig.variables = {
 			section: syncConfig.section || syncConfig.name,
 			type: syncConfig.type,
-			site: syncConfig.site || process.env.CMS_SITE
+			site: syncConfig.site || process.env.CMS_SITE,
+			algoliaSync: true,
 		}
 	}
 
